@@ -79,3 +79,10 @@ A infraestrutura foi dividida em sub-redes virtuais integradas por um firewall c
   </rule>
 
 </group>
+
+## 💡 Aprendizados e Resolução de Problemas
+
+* **Uso de RegEx `pcre2`:** A utilização da flag insensível a maiúsculas/minúsculas `(?i)` garantiu que variações no caminho do binário fossem capturadas corretamente.
+* **Requisitos do Sysmon Event ID 3:** Foi constatado que o Sysmon só gera o evento de conexão de rede (Event ID `3`) quando o handshake TCP é concluído com sucesso, exigindo um listener ativo na porta de destino.
+* **Mapeamento de Canais de Evento:** Ajuste das regras alterando a verificação de `<if_group>sysmon</if_group>` para `<if_group>windows</if_group>` em conjunto com o `providerName` `Microsoft-Windows-Sysmon`, garantindo compatibilidade total com o decodificador EventChannel do Wazuh.
+* **Precedência de Regras Críticas:** Comandos contendo assinaturas conhecidas de reverse shell ativam a regra nativa `91007` (Nível 12), que tem prioridade sobre regras de menor nível.
