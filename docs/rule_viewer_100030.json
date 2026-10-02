@@ -1,0 +1,109 @@
+{
+  "_index": "wazuh-alerts-4.x-2026.10.02",
+  "_id": "cgZf-qABgf2gkQVsKIrR",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    "input": {
+      "type": "log"
+    },
+    "agent": {
+      "ip": "192.168.1.101",
+      "name": "WK01",
+      "id": "001"
+    },
+    "manager": {
+      "name": "wazuh-server"
+    },
+    "data": {
+      "win": {
+        "eventdata": {
+          "originalFileName": "PowerShell.EXE",
+          "image": "C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe",
+          "product": "Microsoft® Windows® Operating System",
+          "parentProcessGuid": "{4e7b1459-0f67-6abf-0205-000000000e00}",
+          "description": "Windows PowerShell",
+          "logonGuid": "{4e7b1459-e684-6abe-e703-000000000000}",
+          "parentCommandLine": "C:\\\\WINDOWS\\\\system32\\\\compattelrunner.exe -cv:Ninl10cc/UGGBz7N.0.5 -wce:0000000000000000  -fullsync -m:appraiser.dll -f:DoScheduledTelemetryRun",
+          "processGuid": "{4e7b1459-1045-6abf-0e05-000000000e00}",
+          "logonId": "0x3e7",
+          "parentProcessId": "1440",
+          "processId": "6596",
+          "currentDirectory": "C:\\\\WINDOWS\\\\system32\\\\",
+          "utcTime": "2026-10-02 02:00:37.310",
+          "hashes": "MD5=61F649A6FDC374A6BF36C860519E017C,SHA256=8BB6FA8C283B4D92120B1EF249A9B311B0F804D4CABBE9981159976C8BE76A5E,IMPHASH=2F87CE4617F593D7148B739BBF06D059",
+          "parentImage": "C:\\\\Windows\\\\System32\\\\CompatTelRunner.exe",
+          "company": "Microsoft Corporation",
+          "commandLine": "powershell.exe -ExecutionPolicy Restricted -Command Write-Host 'Final result: 1';",
+          "integrityLevel": "System",
+          "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+          "user": "AUTORIDADE NT\\\\SISTEMA",
+          "terminalSessionId": "0",
+          "parentUser": "AUTORIDADE NT\\\\SISTEMA"
+        },
+        "system": {
+          "eventID": "1",
+          "keywords": "0x8000000000000000",
+          "providerGuid": "{5770385f-c22a-43e0-bf4c-06f5698ffbd9}",
+          "level": "4",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "opcode": "0",
+          "message": "\"Process Create:\r\nRuleName: -\r\nUtcTime: 2026-10-02 02:00:37.310\r\nProcessGuid: {4e7b1459-1045-6abf-0e05-000000000e00}\r\nProcessId: 6596\r\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\r\nFileVersion: 10.0.26100.9278 (WinBuild.160101.0800)\r\nDescription: Windows PowerShell\r\nProduct: Microsoft® Windows® Operating System\r\nCompany: Microsoft Corporation\r\nOriginalFileName: PowerShell.EXE\r\nCommandLine: powershell.exe -ExecutionPolicy Restricted -Command Write-Host 'Final result: 1';\r\nCurrentDirectory: C:\\WINDOWS\\system32\\\r\nUser: AUTORIDADE NT\\SISTEMA\r\nLogonGuid: {4e7b1459-e684-6abe-e703-000000000000}\r\nLogonId: 0x3E7\r\nTerminalSessionId: 0\r\nIntegrityLevel: System\r\nHashes: MD5=61F649A6FDC374A6BF36C860519E017C,SHA256=8BB6FA8C283B4D92120B1EF249A9B311B0F804D4CABBE9981159976C8BE76A5E,IMPHASH=2F87CE4617F593D7148B739BBF06D059\r\nParentProcessGuid: {4e7b1459-0f67-6abf-0205-000000000e00}\r\nParentProcessId: 1440\r\nParentImage: C:\\Windows\\System32\\CompatTelRunner.exe\r\nParentCommandLine: C:\\WINDOWS\\system32\\compattelrunner.exe -cv:Ninl10cc/UGGBz7N.0.5 -wce:0000000000000000  -fullsync -m:appraiser.dll -f:DoScheduledTelemetryRun \r\nParentUser: AUTORIDADE NT\\SISTEMA\"",
+          "version": "5",
+          "systemTime": "2026-10-02T02:00:37.3571977Z",
+          "eventRecordID": "1043",
+          "threadID": "10116",
+          "computer": "WK01.lab.local",
+          "task": "1",
+          "processID": "5668",
+          "severityValue": "INFORMATION",
+          "providerName": "Microsoft-Windows-Sysmon"
+        }
+      }
+    },
+    "rule": {
+      "firedtimes": 2,
+      "mail": false,
+      "level": 10,
+      "description": "Execução de PowerShell com argumento codificado detectada no host",
+      "groups": [
+        "sysmon",
+        " process_creation",
+        " network_connection",
+        " redteam_detection"
+      ],
+      "mitre": {
+        "technique": [
+          "PowerShell"
+        ],
+        "id": [
+          "T1059.001"
+        ],
+        "tactic": [
+          "Execution"
+        ]
+      },
+      "id": "100030"
+    },
+    "location": "EventChannel",
+    "decoder": {
+      "name": "windows_eventchannel"
+    },
+    "id": "1790906933.4156845",
+    "full_log": "{\"win\":{\"system\":{\"providerName\":\"Microsoft-Windows-Sysmon\",\"providerGuid\":\"{5770385f-c22a-43e0-bf4c-06f5698ffbd9}\",\"eventID\":\"1\",\"version\":\"5\",\"level\":\"4\",\"task\":\"1\",\"opcode\":\"0\",\"keywords\":\"0x8000000000000000\",\"systemTime\":\"2026-10-02T02:00:37.3571977Z\",\"eventRecordID\":\"1043\",\"processID\":\"5668\",\"threadID\":\"10116\",\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"computer\":\"WK01.lab.local\",\"severityValue\":\"INFORMATION\",\"message\":\"\\\"Process Create:\\r\\nRuleName: -\\r\\nUtcTime: 2026-10-02 02:00:37.310\\r\\nProcessGuid: {4e7b1459-1045-6abf-0e05-000000000e00}\\r\\nProcessId: 6596\\r\\nImage: C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\\r\\nFileVersion: 10.0.26100.9278 (WinBuild.160101.0800)\\r\\nDescription: Windows PowerShell\\r\\nProduct: Microsoft® Windows® Operating System\\r\\nCompany: Microsoft Corporation\\r\\nOriginalFileName: PowerShell.EXE\\r\\nCommandLine: powershell.exe -ExecutionPolicy Restricted -Command Write-Host 'Final result: 1';\\r\\nCurrentDirectory: C:\\\\WINDOWS\\\\system32\\\\\\r\\nUser: AUTORIDADE NT\\\\SISTEMA\\r\\nLogonGuid: {4e7b1459-e684-6abe-e703-000000000000}\\r\\nLogonId: 0x3E7\\r\\nTerminalSessionId: 0\\r\\nIntegrityLevel: System\\r\\nHashes: MD5=61F649A6FDC374A6BF36C860519E017C,SHA256=8BB6FA8C283B4D92120B1EF249A9B311B0F804D4CABBE9981159976C8BE76A5E,IMPHASH=2F87CE4617F593D7148B739BBF06D059\\r\\nParentProcessGuid: {4e7b1459-0f67-6abf-0205-000000000e00}\\r\\nParentProcessId: 1440\\r\\nParentImage: C:\\\\Windows\\\\System32\\\\CompatTelRunner.exe\\r\\nParentCommandLine: C:\\\\WINDOWS\\\\system32\\\\compattelrunner.exe -cv:Ninl10cc/UGGBz7N.0.5 -wce:0000000000000000  -fullsync -m:appraiser.dll -f:DoScheduledTelemetryRun \\r\\nParentUser: AUTORIDADE NT\\\\SISTEMA\\\"\"},\"eventdata\":{\"utcTime\":\"2026-10-02 02:00:37.310\",\"processGuid\":\"{4e7b1459-1045-6abf-0e05-000000000e00}\",\"processId\":\"6596\",\"image\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\WindowsPowerShell\\\\\\\\v1.0\\\\\\\\powershell.exe\",\"fileVersion\":\"10.0.26100.9278 (WinBuild.160101.0800)\",\"description\":\"Windows PowerShell\",\"product\":\"Microsoft® Windows® Operating System\",\"company\":\"Microsoft Corporation\",\"originalFileName\":\"PowerShell.EXE\",\"commandLine\":\"powershell.exe -ExecutionPolicy Restricted -Command Write-Host 'Final result: 1';\",\"currentDirectory\":\"C:\\\\\\\\WINDOWS\\\\\\\\system32\\\\\\\\\",\"user\":\"AUTORIDADE NT\\\\\\\\SISTEMA\",\"logonGuid\":\"{4e7b1459-e684-6abe-e703-000000000000}\",\"logonId\":\"0x3e7\",\"terminalSessionId\":\"0\",\"integrityLevel\":\"System\",\"hashes\":\"MD5=61F649A6FDC374A6BF36C860519E017C,SHA256=8BB6FA8C283B4D92120B1EF249A9B311B0F804D4CABBE9981159976C8BE76A5E,IMPHASH=2F87CE4617F593D7148B739BBF06D059\",\"parentProcessGuid\":\"{4e7b1459-0f67-6abf-0205-000000000e00}\",\"parentProcessId\":\"1440\",\"parentImage\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\CompatTelRunner.exe\",\"parentCommandLine\":\"C:\\\\\\\\WINDOWS\\\\\\\\system32\\\\\\\\compattelrunner.exe -cv:Ninl10cc/UGGBz7N.0.5 -wce:0000000000000000  -fullsync -m:appraiser.dll -f:DoScheduledTelemetryRun\",\"parentUser\":\"AUTORIDADE NT\\\\\\\\SISTEMA\"}}}",
+    "timestamp": "2026-10-02T02:08:53.230+0000"
+  },
+  "fields": {
+    "timestamp": [
+      "2026-10-02T02:08:53.230Z"
+    ]
+  },
+  "highlight": {
+    "rule.id": [
+      "@opensearch-dashboards-highlighted-field@100030@/opensearch-dashboards-highlighted-field@"
+    ]
+  },
+  "sort": [
+    1790906933230
+  ]
+}
