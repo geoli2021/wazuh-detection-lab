@@ -51,34 +51,57 @@ A infraestrutura foi dividida em sub-redes virtuais integradas por um firewall c
 ## 📜 Regras Customizadas no Wazuh (`local_rules.xml`)
 
 ```xml
-<group name="sysmon, redteam_detection,">
+<group name="windows, kerberos, redteam_detection,">
+  <rule id="100010" level="10">
+    <if_group>windows</if_group>
+    <field name="win.system.eventID">^4769$</field>
+    <field name="win.eventdata.ticketEncryptionType">^0x17$</field>
+    <description>Possível Ataque de Kerberoasting detectado (TGS em RC4 no DC01)</description>
+    <mitre>
+      <id>T1558.003</id>
+    </mitre>
+  </rule>
+</group>
+<group name="windows, authentication_failures, redteam_detection,">
+  <rule id="100021" level="12" frequency="5" timeframe="60">
+    <if_matched_sid>60122</if_matched_sid>
+    <same_field>win.eventdata.ipAddress</same_field>
+    <description>Possível Ataque de Password Spraying detectado no DC01 (Múltiplas falhas de logon)</description>
+    <mitre>
+      <id>T1110.003</id>
+    </mitre>
+  </rule>
+</group>
+<group name="sysmon, process_creation, network_connection, redteam_detection,">
 
-  <!-- Regra 100030: PowerShell Codificado -->
+  <!-- Regra 100030: PowerShell Codificado (Sysmon Event ID 1) -->
   <rule id="100030" level="10">
     <if_group>windows</if_group>
     <field name="win.system.providerName">^Microsoft-Windows-Sysmon$</field>
     <field name="win.system.eventID">^1$</field>
     <field name="win.eventdata.image" type="pcre2">(?i)powershell\.exe</field>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)-e(nc(odedcommand)?)?</field>
-    <description>Execução de PowerShell com argumento codificado detectada em $(win.system.computer)</description>
+    <description>Execução de PowerShell com argumento codificado detectada no host</description>
     <mitre>
       <id>T1059.001</id>
     </mitre>
   </rule>
+</group>
+<group name="sysmon, network_connection, redteam_detection,">
 
-  <!-- Regra 100031: Conexão de Saída por Processo Shell -->
-  <rule id="100031" level="11">
-    <if_group>windows</if_group>
-    <field name="win.system.providerName">^Microsoft-Windows-Sysmon$</field>
+  <!-- Regra 100031: Focada estritamente no Sysmon Event ID 3 (Conexão de Rede) -->
+  <rule id="100031" level="13">
+    <if_group>sysmon</if_group>
     <field name="win.system.eventID">^3$</field>
     <field name="win.eventdata.image" type="pcre2">(?i)(cmd|powershell)\.exe</field>
-    <description>Processo de Shell ($(win.eventdata.image)) estabeleceu conexão de rede de saída</description>
+    <description>Processo de Shell ($(win.eventdata.image)) estabeleceu conexão de rede de saída para $(win.eventdata.destinationIp):$(win.eventdata.destinationPort)</description>
     <mitre>
       <id>T1071</id>
     </mitre>
   </rule>
 
 </group>
+
 ```
 ## 💡 Aprendizados e Resolução de Problemas
 
