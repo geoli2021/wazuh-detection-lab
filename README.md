@@ -24,6 +24,34 @@ A infraestrutura foi dividida em sub-redes virtuais integradas por um firewall c
 
 ---
 
+
+```mermaid
+graph TD
+    Internet[Internet / WAN] -->|WAN: 10.0.2.15| pfSense[pfSense Firewall / Router]
+    
+    subgraph Sub-rede de Ataque
+        Kali[Kali Linux<br>10.0.2.3<br>Attacker Machine]
+    end
+
+    subgraph Sub-rede de Domínio - AD (192.168.1.0/24)
+        DC01[DC01 - Active Directory<br>192.168.1.10<br>Windows Server 2022]
+        WK01[WK01 - Workstation<br>192.168.1.101<br>Windows 10/11]
+    end
+
+    subgraph Sub-rede SIEM & Monitorização (172.16.10.0/24)
+        Wazuh[Wazuh Server<br>172.16.10.101<br>SIEM Manager & Dashboard]
+    end
+
+    pfSense --> Kali
+    pfSense --> DC01
+    pfSense --> WK01
+    pfSense --> Wazuh
+
+    DC01 -.->|Telemetria / Sysmon Logs| Wazuh
+    WK01 -.->|Telemetria / Sysmon Logs| Wazuh
+    Kali ==>|Simulação de Ataque / Impacket| DC01
+```
+
 ## 🎯 Táticas e Regras de Detecção Validadas
 
 ### 1. Kerberoasting (MITRE T1558.003)
