@@ -29,16 +29,16 @@ A infraestrutura foi dividida em sub-redes virtuais integradas por um firewall c
 graph TD
     Internet[Internet / WAN] -->|WAN: 10.0.2.15| pfSense[pfSense Firewall / Router]
     
-    subgraph Sub-rede de Ataque
+    subgraph AttackerSubnet ["Sub-rede de Ataque"]
         Kali[Kali Linux<br>10.0.2.3<br>Attacker Machine]
     end
 
-    subgraph Sub-rede de Domínio - AD (192.168.1.0/24)
+    subgraph ADSubnet ["Sub-rede de Dominio AD - 192.168.1.0/24"]
         DC01[DC01 - Active Directory<br>192.168.1.10<br>Windows Server 2022]
         WK01[WK01 - Workstation<br>192.168.1.101<br>Windows 10/11]
     end
 
-    subgraph Sub-rede SIEM & Monitorização (172.16.10.0/24)
+    subgraph SIEMSubnet ["Sub-rede SIEM e Monitoramento - 172.16.10.0/24"]
         Wazuh[Wazuh Server<br>172.16.10.101<br>SIEM Manager & Dashboard]
     end
 
@@ -49,7 +49,7 @@ graph TD
 
     DC01 -.->|Telemetria / Sysmon Logs| Wazuh
     WK01 -.->|Telemetria / Sysmon Logs| Wazuh
-    Kali ==>|Simulação de Ataque / Impacket| DC01
+    Kali ==>|Simulacao de Ataque / Impacket| DC01
 ```
 
 ## 🎯 Táticas e Regras de Detecção Validadas
