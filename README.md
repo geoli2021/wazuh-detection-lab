@@ -1,12 +1,27 @@
-# 🛡️️ Active Directory & Wazuh SIEM Detection Engineering Lab
+# 🛡️ Active Directory & Wazuh SIEM Detection Engineering Lab
 
-## 📌 Visão Geral do Projeto
-Este projeto consiste em um ambiente controlado de laboratório focado em **Engenharia de Detecção**, simulação de cenários de ataque (Red Team) e validação de regras de monitoramento em tempo real utilizando **Wazuh SIEM** e **Sysmon** (Blue Team).
-
-O objetivo principal foi simular táticas e técnicas do ecossistema **MITRE ATT&CK** contra uma infraestrutura de domínio Active Directory, analisando a telemetria gerada e desenvolvendo regras customizadas no SIEM para detecção proativa de anomalias.
+Laboratório prático de **Engenharia de Detecção**, focado em simulação de ataques em ecossistema Active Directory (Red Team) e monitoramento defensivo com **Wazuh SIEM** e **Sysmon** (Blue Team).
 
 ---
 
-## 📐 Arquitetura & Topologia de Rede
+## 📐 Topologia de Rede & Laboratório
 
-O ambiente foi estruturado em sub-redes virtuais controladas por um firewall pfSense:
+* **Attacker (Kali Linux):** `10.0.2.3` — Ferramentas: Impacket, NetExec, Netcat.
+* **Domain Controller (DC01):** `192.168.1.10` — Windows Server 2022 (`lab.local`).
+* **Workstation (WK01):** `192.168.1.101` — Windows 10/11 Endpoint.
+* **Firewall (pfSense):** `10.0.2.15` — Roteamento e regras de rede.
+* **SIEM (Wazuh Server):** `172.16.10.101` — Manager, Decoders e Dashboard.
+
+---
+
+## 📁 Estrutura de Documentação do Repositório
+
+* **[Documentação de Detecções & Testes](docs/detections.md):** Detalhamento das táticas MITRE ATT&CK testadas (Kerberoasting, Password Spraying, PowerShell Codificado e Reverse Shell) e comandos de simulação.
+* **[Regras Customizadas do Wazuh](rules/local_rules.xml):** Ficheiro XML contendo todas as regras desenvolvidas e personalizadas no SIEM.
+
+---
+
+## 🛠️ Resumo das Tecnologias Utilizadas
+- **SIEM & EDR:** Wazuh Manager v4.x + Sysmon v15.x
+- **Rede & Serviços:** Active Directory, Kerberos, NTLM, pfSense
+- **Simulação de Ataques:** Impacket (`atexec`, `psexec`), Netcat
