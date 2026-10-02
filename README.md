@@ -79,7 +79,7 @@ A infraestrutura foi dividida em sub-redes virtuais integradas por um firewall c
   </rule>
 
 </group>
-
+```
 ## 💡 Aprendizados e Resolução de Problemas
 
 * **Uso de RegEx `pcre2`:** A utilização da flag insensível a maiúsculas/minúsculas `(?i)` garantiu que variações no caminho do binário fossem capturadas corretamente.
